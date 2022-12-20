@@ -1,5 +1,4 @@
 from mrjob.job import MRJob
-from collections.abc import Mapping, Iterable
 
 
 class MoviesRanked(MRJob):
@@ -7,7 +6,7 @@ class MoviesRanked(MRJob):
     """
     The default 'mapper' function maps a key-value pair for each row of your data.
     """
-    def mapper(self, _, row: str) -> Mapping[str, int]:
+    def mapper(self, _, row: str):
         (userID, movieID, rating, timestamp) = row.split('\t')
         yield movieID, 1
 
@@ -18,7 +17,7 @@ class MoviesRanked(MRJob):
         3. yields a key-value pair, usually where the key remains the same and the value
            is the result of the aggregation function.
     """
-    def reducer(self, key: str, values: Iterable[int]) -> Mapping[str, int]:
+    def reducer(self, key: str, values):
         yield key, sum(values)
 
 
