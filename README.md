@@ -1,6 +1,6 @@
-# Hiroshi's Hadoop Playground 🐘
+# 🐘 Hiroshi's Hadoop Playground 🐘
 
 ---
-This repo explores Hadoop's most popular modules.  
+For my own edumacation, and hopefully for others'.
+  
 
-Instructions and examples are available in each directory.

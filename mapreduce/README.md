@@ -3,9 +3,7 @@
 ---
 ### Summary
 
-A toy example of doing MapReduce "the old-fashioned way."  
-Requires only the `mrjobs` module, and can be run locally  
-or on a Hadoop cluster.  
+A toy example of doing MapReduce "the old-fashioned way." Requires only the `mrjobs` module, and can be run locally or on a Hadoop cluster.  
 
 ### Folder Content
 - `makefile` contains the bash commands for running the MapReduce jobs.
