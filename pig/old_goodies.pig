@@ -16,4 +16,8 @@ overFourStarsWithData = JOIN overFourStars BY movieID, nameLookup BY movieID;
 
 sortedMovies = ORDER overFourStarsWithData BY nameLookup::releaseTime;
 
-DUMP sortedMovies;
+sortedMoviesWithDates = FOREACH sortedMovies GENERATE movieTitle, ToString(ToDate(nameLookup::releaseTime * 1000L), 'dd-MMM-yyyy') AS date, avgRating;
+
+DUMP sortedMoviesWithDates;
+
+STORE sortedMoviesWithDates INTO 'ratings' USING PigStorage(':');

@@ -9,10 +9,10 @@ The movie titles are in a separate file from the ratings, so we need a way to jo
 
 `old_goodies_mr.py` shows how we could do this using MapReduce. `old_goodies.pig` performs a similar operation using Pig Latin syntax.  
 
-Pros of using Pig:
+**Pros** of using Pig :white_check_mark::
 - Pig Latin syntax is easier to read (and write, if you know the syntax)
 
-Cons of using Pig:
+**Cons** of using Pig :x::
 - You need both Hadoop and Pig installed, whereas MR jobs can be done via the `mrjobs` module.
 - While the same is true for MR, the newest release of Pig is from 2017.  
 
@@ -26,5 +26,5 @@ Pig can be installed locally, but that requires Hadoop to also be installed. Ins
 
 Once SSH'd into your EMR instance,
 1. Either clone this repo or copy the `pig` directory into your instance.
-2. Run `make pig`, which will execute the `old_goodies.pig` script. The results will be displayed in the console.
+2. Run `make pig`, which will execute the `old_goodies.pig` script. The results will be displayed to the console and saved in a `ratings` folder.
 
