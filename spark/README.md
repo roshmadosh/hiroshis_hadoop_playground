@@ -2,7 +2,7 @@
 
 ### Summary
 
-If you're interested in learning how Spark works, I won't be the best person to explain it. But I can talk about how I got this darn thing to work and the observations I made along the way.  
+Below you'll find observations I made while implementing Spark via its different APIs. 
 
 ### Spark + Scala
 If you check out the `scala` directory you'll find `MyExample.scala` which _should_ run given the following:
