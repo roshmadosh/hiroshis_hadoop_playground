@@ -2,6 +2,11 @@ package examples
 
 import org.apache.spark.{SparkConf, SparkContext}
 
+/**
+ *  A "simple" example of performing data processing with Spark and Scala.
+ *
+ *  The run() function prints to STDOUT the average rating from the 'u.data' file.
+ */
 object Simple {
 
   def run(): Unit = {
@@ -14,12 +19,18 @@ object Simple {
     sc.setLogLevel("error")
 
     // Upload data
-    val lines = sc.textFile("data.txt")
+    val lines = sc.textFile("u.data")
 
     // Map-reduce in Scala!
-    val charCount = lines.map(_.length).reduce(_+_)
+    val charCount = lines
+      .map(_.split("\t"))
+      .map(_.apply(2))
+      .map(_.toFloat)
+      .reduce(_+_)
 
-    println(s"The number of characters in our data file is $charCount")
+    val avg = charCount/lines.count()
+
+    println("The average rating in the u.data file is %.2f".format(avg))
 
     // Stopping the SparkContext instance is recommended by the docs
     sc.stop()

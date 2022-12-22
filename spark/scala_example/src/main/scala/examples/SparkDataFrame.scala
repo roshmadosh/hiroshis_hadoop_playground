@@ -3,10 +3,14 @@ package examples
 import org.apache.spark.sql.{SparkSession, DataFrame}
 import org.apache.spark.sql.types.{IntegerType, StructType}
 
+/**
+ *  A class for initializing a Spark Session and creating a Spark dataframe from
+ *  the u.data file.
+ */
 case class SparkDataFrame(url : String, colNames : List[String] = List()) {
 
   val spark = startSparkSession()
-  val df = constructDataFrame(url)
+  val df = constructDataFrame()
 
   def initialize() : (SparkSession, DataFrame) = {
     (spark, df)
@@ -23,7 +27,8 @@ case class SparkDataFrame(url : String, colNames : List[String] = List()) {
     spark
   }
 
-  private def constructDataFrame(url : String) : DataFrame = {
+  private def constructDataFrame() : DataFrame = {
+    // hardcoded column-naming
     val schema = new StructType()
       .add("userID", IntegerType, false)
       .add("movieID", IntegerType, false)
