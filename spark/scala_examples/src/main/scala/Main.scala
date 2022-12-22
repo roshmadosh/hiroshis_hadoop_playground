@@ -1,19 +1,19 @@
-import examples.{Simple, SparkDataFrame}
+import examples.{RDDAPI, DataFrameAPI}
 
 /**
  *  Driver class for testing examples.
  */
 object Main {
   def main(args : Array[String]): Unit = {
-    runSimpleExample()
+    runDataFrameExample()
   }
 
-  private def runSimpleExample() : Unit = {
-    Simple.run()
+  private def runRddExample() : Unit = {
+    RDDAPI.run()
   }
   private def runDataFrameExample() : Unit = {
     // get Spark Session and a DataFrame instance for our 'u.data' file
-    val df_object = SparkDataFrame("u.data")
+    val df_object = DataFrameAPI("u.data")
     val (spark, df) = df_object.initialize()
 
     // do some stuff with the DataFrame API

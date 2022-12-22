@@ -7,7 +7,7 @@ import org.apache.spark.sql.types.{IntegerType, StructType}
  *  A class for initializing a Spark Session and creating a Spark dataframe from
  *  the u.data file.
  */
-case class SparkDataFrame(url : String, colNames : List[String] = List()) {
+case class DataFrameAPI(url : String, colNames : List[String] = List()) {
 
   val spark = startSparkSession()
   val df = constructDataFrame()

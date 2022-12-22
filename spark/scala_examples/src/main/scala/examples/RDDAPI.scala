@@ -7,7 +7,7 @@ import org.apache.spark.{SparkConf, SparkContext}
  *
  *  The run() function prints to STDOUT the average rating from the 'u.data' file.
  */
-object Simple {
+object RDDAPI {
 
   def run(): Unit = {
 
