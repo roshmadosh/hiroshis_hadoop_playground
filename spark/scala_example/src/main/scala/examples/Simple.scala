@@ -1,8 +1,10 @@
-import org.apache.spark.{SparkContext, SparkConf}
+package examples
 
-object MyExample {
+import org.apache.spark.{SparkConf, SparkContext}
 
-  def main(args : Array[String]): Unit = {
+object Simple {
+
+  def run(): Unit = {
 
     // setMaster() is set to 'local' but would normally pass a URL to your data store (e.g. HDFS)
     val conf = new SparkConf().setAppName("My First Spark App").setMaster("local")
