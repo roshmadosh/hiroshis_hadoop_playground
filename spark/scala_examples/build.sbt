@@ -6,5 +6,13 @@ lazy val root = (project in file("."))
   .settings(
     name := "scala_example"
   )
+val sparkVersion = "3.3.1"
+val scalatestVersion = "3.2.14"
 
-libraryDependencies += "org.apache.spark"%%"spark-sql"%"3.3.1"
+libraryDependencies ++= Seq(
+  // Apache Spark
+  "org.apache.spark" %% "spark-sql" % sparkVersion,
+
+  // testing
+  "com.novocode" % "junit-interface" % "0.11" % "test"
+)
