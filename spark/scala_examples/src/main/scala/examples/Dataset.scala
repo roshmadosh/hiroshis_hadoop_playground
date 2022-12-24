@@ -1,16 +1,18 @@
 package examples
 
-import model.MovieReview
-import org.apache.spark.sql.{DataFrame, Dataset, Encoders, SparkSession}
+
 import org.apache.spark.sql.types.{IntegerType, StructType}
 
 /**
- *  A class for initializing a Spark Session and creating a Spark dataframe from
- *  the u.data file.
+ *  A Spark Dataset definition for our movie reviews. A Spark Dataset is like a Spark Dataframe,
+ *  but it's typed and will catch errors at compile-time.
+ *
+ *  The Dataset API is only available for Spark apps written in Java or Scala.
  */
-case class DataFrameAPI(url : String, colNames : List[String] = List())
 
 object MovieReviewsTyped {
+  import org.apache.spark.sql.{Encoders, SparkSession}
+  import model.MovieReview
 
   def run(): Unit = {
     val spark = SparkSession.builder().master("local").getOrCreate()

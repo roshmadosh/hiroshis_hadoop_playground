@@ -1,4 +1,4 @@
 package model
 
 
-case class MovieReview(userID : Integer, movieID : Integer, rating : Integer, timestamp : Integer)
+case class MovieReview(userID : Int, movieID : Int, rating : Int, timestamp : Int)

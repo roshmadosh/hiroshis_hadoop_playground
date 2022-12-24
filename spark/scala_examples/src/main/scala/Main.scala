@@ -1,11 +1,15 @@
-import examples.{DataFrameAPI, MovieReviewsTyped, RDD}
+import examples.{Basic, MovieReviewsTyped, RDD}
 
 /**
  *  Driver class for testing examples.
  */
 object Main {
   def main(args : Array[String]): Unit = {
-    runDataFrameExample()
+    runBasicExample()
+  }
+
+  private def runBasicExample() : Unit = {
+    Basic.run("u.data")
   }
 
   private def runRddExample() : Unit = {
