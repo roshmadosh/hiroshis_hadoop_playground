@@ -5,7 +5,7 @@ import examples.{Basic, MovieReviewsTyped, RDD}
  */
 object Main {
   def main(args : Array[String]): Unit = {
-    runBasicExample()
+    runRddExample()
   }
 
   private def runBasicExample() : Unit = {
@@ -13,7 +13,7 @@ object Main {
   }
 
   private def runRddExample() : Unit = {
-    RDD.run()
+    RDD.run("u.data")
   }
   private def runDataFrameExample() : Unit = {
     MovieReviewsTyped.run()

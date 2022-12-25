@@ -4,23 +4,17 @@
 
 Below you'll find observations I made while implementing Spark via its different APIs. 
 
-### Spark + Scala
-I go over the following API's in the `scala_examples` directory.
-- RDD
-- DataFrame
+**Most of the files mentioned going forward will be located in the `scala_examples/src/main/scala/` directory.**  
 
+### Just Scala
 
-The examples _should_ run given the following:
-1. You have Java 8 installed
-2. You have Scala 2.12.15 installed
+There's a quick example of doing data processing using Scala _without_ Spark in the `Basic.scala` file. I write a function that finds the movie ID with the highest average rating in the `ml-100k` data set.  
 
-The biggest pain point I found with Spark + Scala is ensuring **version compatibility**.
+A naive implementation would be one where I group the ratings by movie ID, perform one traversal when I calculate the averages for each movie, then iterate through the movie IDs again when I determine the highest average.  
 
-Spark's latest version aToW is 3.3.1. According to the docs it's supposed to work with Java versions 8/11/17. After several failed attempts and doing some research, it appears Spark's latest version doesn't actually work with Java 17 (at least by default).  
+Scala makes it easy to do a more functional style of programming, where I'm able to achieve the same results from the latter two operations with a single traversal. `foldLeft` is like a reduce function, but allows the result to be a different type from the items in the collection. 
 
-In addition, 3.3.1 is only compatible with certain versions of Scala **2**. So not only are we stuck with keeping older versions of Java installed on our computers, but Scala as well...  
+### Resilient Distributed Dataset (RDD)
 
-Note that I'm using `sbt` instead of Maven as my build tool. `sbt` is simpler and was less tedious to get working.
-
-
+You'll find an `RDD.scala` file in the same folder as `Basic.scala`.
 

@@ -2,7 +2,6 @@ package examples
 
 import org.junit.Test
 import org.junit.Assert._
-import examples.Basic
 import model.MovieReview
 
 class BasicTest {
@@ -16,7 +15,6 @@ class BasicTest {
     MovieReview(0, 2, 3, 100),
     MovieReview(0, 2, 3, 100),
     MovieReview(0, 2, 3, 100),
-
   )
   @Test
   def getMaxAvgRatingReturnsMaxAvgWithID() : Unit = {
