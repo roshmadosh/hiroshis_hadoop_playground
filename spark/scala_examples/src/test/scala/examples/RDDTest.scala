@@ -11,9 +11,9 @@ object RDDTest {
   private var sc: SparkContext = _
   private var reviewsRDD: RDD[String] = _
   private val reviews = Array(
-    "0 0 5 100",
-    "1 0 4 100",
-    "0 1 2 100"
+    "0\t0\t5\t100",
+    "1\t0\t4\t100",
+    "0 \t1\t2\t100"
   )
 
   @BeforeClass

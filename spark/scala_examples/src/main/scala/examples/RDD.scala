@@ -21,15 +21,39 @@ object RDD {
 
     // Upload data
     val lines = sc.textFile(url)
-    lines.take(5) foreach println
-//    val results = getMaxAvgRatingWithID(lines)
+    val results = getMaxAvgRatingWithID(lines)
 
+    println(s"The movie with the highest avg rating is ${results._1} with a rating of ${results._2}")
     // Stopping the SparkContext instance is recommended by the docs
     sc.stop()
   }
 
   def getMaxAvgRatingWithID(rdd : RDD[String]): (Int, Double) = {
-    (0,0.0)
+
+    val zero = (0, 0.0)
+    val seqOp = (acc: (Int, Double), ele: (Int, Iterable[Array[String]])) => {
+      val (maxID, maxAvg) = acc
+      val (movieID, reviews) = ele
+
+      val ratings = reviews.map(_.apply(2).toDouble)
+      val avgRating = ratings.sum / ratings.size
+
+      if (maxAvg >= avgRating) maxID -> maxAvg else movieID -> avgRating
+    }
+
+    val combOp = (pair1 : (Int, Double), pair2 : (Int, Double)) => {
+      val (id1, rating1) = pair1
+      val (id2, rating2) = pair2
+
+      if (rating1 >= rating2) id1 -> rating1 else id2 -> rating2
+    }
+
+    /* Methods that generate an RDD from a file return an RDD[String] */
+    rdd.map(_.split('\t'))
+      /* Can't use a case class to establish a "schema" unless performing an extra map. */
+      .groupBy(_.apply(1).toInt)
+      /* The 'fold' method in Spark */
+      .aggregate(zero) (seqOp, combOp)
   }
 
 }
