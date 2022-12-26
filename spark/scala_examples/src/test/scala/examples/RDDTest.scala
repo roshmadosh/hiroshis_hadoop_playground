@@ -13,7 +13,9 @@ object RDDTest {
   private val reviews = Array(
     "0\t0\t5\t100",
     "1\t0\t4\t100",
-    "0 \t1\t2\t100"
+    "0\t1\t2\t100",
+    "0\t1\t2\t100",
+    "0\t1\t2\t100",
   )
 
   @BeforeClass
@@ -37,8 +39,14 @@ class RDDTest {
   @Test
   def getMaxAvgRatingWithIDReturnsMaxWithValidInput(): Unit = {
     val expected = (0, 4.5)
-    val actual = RDD.getMaxAvgRatingWithID(reviewsRDD)
+    val actual = RDD.getMaxAvgRatingWithID(reviewsRDD, 1)
     assertEquals(expected, actual)
   }
 
+  @Test
+  def getMaxAvgRatingWithIDIgnoresMoviesBelowMinReviews(): Unit = {
+    val expected = (1, 2.0)
+    val actual = RDD.getMaxAvgRatingWithID(reviewsRDD, 3)
+    assertEquals(expected, actual)
+  }
 }
