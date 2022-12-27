@@ -1,12 +1,13 @@
 package examples
 
+import model.MovieReview
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
  *  Doing the same thing as we did in the Basic example, but using Spark's RDD.
  */
-object RDD {
+object RDDExample {
 
   def run(url : String) : Unit = {
 
@@ -17,8 +18,15 @@ object RDD {
     /* Just to make the output more visible */
     sc.setLogLevel("error")
 
-    /* textFile method returns an RDD[String] */
-    val lines = sc.textFile(url)
+    /* textFile method returns an RDD[String]. Map to RDD[MovieReview].
+    Cache() allows for subsequent use of the same instance. */
+    val lines = sc
+      .textFile(url)
+      .map(line => {
+        val attributes = line.split("\t").map(_.toInt)
+        MovieReview(attributes(0), attributes(1), attributes(2), attributes(3))
+      })
+      .cache()
 
     /* Invoke our function */
     val minReviews = 10
@@ -30,13 +38,13 @@ object RDD {
     sc.stop()
   }
 
-  def getMaxAvgRatingWithID(rdd : RDD[String], minReviews: Int): (Int, Double) = {
+  def getMaxAvgRatingWithID(rdd : RDD[MovieReview], minReviews: Int): (Int, Double) = {
 
     /* Starting values for the accumulator */
     val zero = (0, 0.0)
 
     /* Like a reducer function that can return any type */
-    val seqOp = (acc: (Int, Double), ele: (Int, Iterable[Array[String]])) => {
+    val seqOp = (acc: (Int, Double), ele: (Int, Iterable[MovieReview])) => {
 
       /* Extra step of destructuring arguments, can't define these in parameter definition. */
       val (maxID, maxAvg) = acc
@@ -46,7 +54,7 @@ object RDD {
       if (reviews.size < minReviews) maxID -> maxAvg
 
       else {
-        val ratings = reviews.map(_.apply(2).toDouble)
+        val ratings = reviews.map(_.rating.toDouble)
         val avgRating = ratings.sum / ratings.size
 
         if (maxAvg >= avgRating) maxID -> maxAvg else movieID -> avgRating
@@ -63,10 +71,7 @@ object RDD {
     }
 
     /* Rows in our file are tab-delimited. */
-    rdd.map(_.split('\t'))
-      /* Can't use a case class to establish a "schema" unless performing an extra map. This
-       means I can't index by key.*/
-      .groupBy(_.apply(1).toInt)
+    rdd.groupBy(_.movieID)
       .aggregate(zero) (seqOp, combOp)
   }
 

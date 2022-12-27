@@ -1,4 +1,4 @@
-import examples.{Basic, MovieReviewsTyped, RDD}
+import examples.{Basic, MovieReviewsTyped, RDDExample}
 
 /**
  *  Driver class for testing examples.
@@ -13,7 +13,7 @@ object Main {
   }
 
   private def runRddExample() : Unit = {
-    RDD.run("u.data")
+    RDDExample.run("u.data")
   }
   private def runDataFrameExample() : Unit = {
     MovieReviewsTyped.run()
