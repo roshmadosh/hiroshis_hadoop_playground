@@ -1,8 +1,9 @@
 package examples
 
-import org.apache.spark.sql.{DataFrame, SparkSession, Encoders}
+import org.apache.spark.sql.{DataFrame, Encoders, SparkSession}
 import model.MovieReview
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types._
 
 /**
  *  An example for Spark's DataFrame API
@@ -23,6 +24,12 @@ object DataframeExample {
     convert RDD to DF */
     import spark.implicits._
 
+    val schema = new StructType()
+      .add("userID", IntegerType)
+      .add("movieID", IntegerType)
+      .add("rating", IntegerType)
+      .add("timestamp", IntegerType)
+
     val ratingsDF = spark.sparkContext
       .textFile(url)
       .map(line => {
@@ -40,11 +47,11 @@ object DataframeExample {
 
   def getMaxAvgRatingWithID(df : DataFrame, minRatings: Int) = {
     df.groupBy("movieID")
-      .agg(
+      .agg( // this is convenient, not available on RDD
         avg("rating"),
-        count("rating")
+        count("movieID")
       )
-      .filter(row => row.getAs[Long]("count(rating)") > minRatings) // count aggregation returns Long type
+      .where(col("count(movieID)") >= minRatings)
       .map(row => // Encoders provided explicitly, could have also imported spark.implicit._
         (row.getAs[Int]("movieID"), row.getAs[Double]("avg(rating)")))(Encoders.tuple(Encoders.scalaInt, Encoders.scalaDouble))
       .collect // aggregate distributed data

@@ -44,7 +44,14 @@ class DataframeTest {
   @Test
   def getMaxAvgRatingWithIDReturnsMaxWithValidInput(): Unit = {
     val expected = (0, 4.5)
-    val actual = DataframeExample.getMaxAvgRatingWithID(ratingsDF)
+    val actual = DataframeExample.getMaxAvgRatingWithID(ratingsDF, 1)
+    assertEquals(expected, actual)
+  }
+
+  @Test
+  def getMaxAvgRatingWithIDIgnoresBelowMinRatings(): Unit = {
+    val expected = (1, 2.0)
+    val actual = DataframeExample.getMaxAvgRatingWithID(ratingsDF, 3)
     assertEquals(expected, actual)
   }
 }

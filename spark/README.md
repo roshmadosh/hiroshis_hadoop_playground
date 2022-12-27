@@ -21,9 +21,18 @@ Scala makes it easy to do a more functional style of programming, where I'm able
 
 ### Resilient Distributed Dataset (RDD)
 
-Processing data via RDD's is similar to how data is processed with plain Scala. The main difference is that RDD lazy evaluates transformations, which saves trips to disk by 
+Processing data via RDD's is similar to how data is processed with plain Scala. The main difference is that RDD lazy evaluates transformations, which saves trips to disk by combining transformations and ignoring steps that are unused for the action.
 
 ### Dataframes
+
+Pros: 
+- Functions like `.agg` combined with aggregate functions from `org.apache.spark.sql.functions` provide a more declarative syntax than RDD's
+- You can call `.show` on them to display a dataframe, similar to Pandas
+
+Cons:
+- Dataframes are always of type `Dataset[Row]`, so there's decreased capability in compile-time error-checking (i.e. giving field names as strings)
+- `Row` type is not easy to index by field, need to either implicitly or explicitly provide encoding of field-value types, e.g. writing stuff like `row.getAs[Int]("movieID")(Encoder.scalaInt)`
+
 
 
 
