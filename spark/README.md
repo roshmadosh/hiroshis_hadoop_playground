@@ -21,5 +21,9 @@ Scala makes it easy to do a more functional style of programming, where I'm able
 
 ### Resilient Distributed Dataset (RDD)
 
-You'll find an `RDD.scala` file in the same folder as `Basic.scala`.
+Processing data via RDD's is similar to how data is processed with plain Scala. The main difference is that RDD lazy evaluates transformations, which saves trips to disk by 
+
+### Dataframes
+
+
 

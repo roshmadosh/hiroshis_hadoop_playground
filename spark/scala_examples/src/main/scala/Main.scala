@@ -1,11 +1,11 @@
-import examples.{Basic, MovieReviewsTyped, RDDExample}
+import examples.{Basic, DataframeExample, RDDExample}
 
 /**
  *  Driver class for testing examples.
  */
 object Main {
   def main(args : Array[String]): Unit = {
-    runRddExample()
+    runDataFrameExample()
   }
 
   private def runBasicExample() : Unit = {
@@ -16,6 +16,6 @@ object Main {
     RDDExample.run("u.data")
   }
   private def runDataFrameExample() : Unit = {
-    MovieReviewsTyped.run()
+    DataframeExample.run("u.data")
   }
 }

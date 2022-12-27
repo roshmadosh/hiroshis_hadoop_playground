@@ -10,7 +10,7 @@ import org.apache.spark.sql.types.{IntegerType, StructType}
  *  The Dataset API is only available for Spark apps written in Java or Scala.
  */
 
-object MovieReviewsTyped {
+object DatasetExample {
   import org.apache.spark.sql.{Encoders, SparkSession}
   import model.MovieReview
 

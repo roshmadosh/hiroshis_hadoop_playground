@@ -5,7 +5,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
- *  Doing the same thing as we did in the Basic example, but using Spark's RDD.
+ *  An example for Spark's RDD API.
  */
 object RDDExample {
 
