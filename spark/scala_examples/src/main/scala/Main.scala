@@ -1,11 +1,11 @@
-import examples.{Basic, DataframeExample, RDDExample}
+import examples.{Basic, DataframeExample, DatasetExample, RDDExample}
 
 /**
  *  Driver class for testing examples.
  */
 object Main {
   def main(args : Array[String]): Unit = {
-    runDataFrameExample()
+    runDatasetExample()
   }
 
   private def runBasicExample() : Unit = {
@@ -17,5 +17,9 @@ object Main {
   }
   private def runDataFrameExample() : Unit = {
     DataframeExample.run("u.data")
+  }
+
+  private def runDatasetExample() : Unit = {
+    DatasetExample.run("u.data")
   }
 }

@@ -1,7 +1,11 @@
 package examples
 
+import org.apache.spark.sql.Dataset
+import org.apache.spark.sql.functions._
+import model.MovieReview
+import org.apache.spark.sql.{Encoders, SparkSession}
 
-import org.apache.spark.sql.types.{IntegerType, StructType}
+
 
 /**
  *  A Spark Dataset definition for our movie reviews. A Spark Dataset is like a Spark Dataframe,
@@ -11,10 +15,8 @@ import org.apache.spark.sql.types.{IntegerType, StructType}
  */
 
 object DatasetExample {
-  import org.apache.spark.sql.{Encoders, SparkSession}
-  import model.MovieReview
 
-  def run(): Unit = {
+  def run(url : String): Unit = {
     val spark = SparkSession.builder().master("local").getOrCreate()
     import spark.implicits._
 
@@ -22,14 +24,20 @@ object DatasetExample {
 
     val movieReviews = spark
       .read
-      .schema(Encoders.product[MovieReview].schema)
       .option("delimiter", "\t")
-      .csv("u.data")
+      .csv(url)
       .as[MovieReview]
 
-    movieReviews.show()
+
+    val minRatings = 10
+    getMaxAvgRatingWithID(movieReviews, minRatings)
 
     spark.stop()
+  }
+
+  def getMaxAvgRatingWithID(ds : Dataset[MovieReview], minRatings : Int): Unit = {
+  /* Even though datasets are typed, as soon as we groupby or change the schema (e.g.
+  * adding a column) it's no longer typed */
   }
 
 }
