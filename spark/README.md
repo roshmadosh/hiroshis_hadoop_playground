@@ -33,6 +33,8 @@ Cons:
 - Dataframes are always of type `Dataset[Row]`, so there's decreased capability in compile-time error-checking (i.e. giving field names as strings)
 - `Row` type is not easy to index by field, need to either implicitly or explicitly provide encoding of field-value types, e.g. writing stuff like `row.getAs[Int]("movieID")(Encoder.scalaInt)`
 
+### Datasets
 
+Even though Spark Datasets are typed, as soon as we perform an operation that changes the schema (i.e. adding a column, doing a groupby, etc.), the dataset's schema has changed and is converted back to an untyped Dataset\[Row\].
 
 
